@@ -39,8 +39,8 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="relative text-gray-700 transition-colors duration-300 hover:text-purple-600 font-bold
-              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-500 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
               after:transition-all after:duration-300 hover:after:w-full"
             >
               {link.label}
@@ -54,7 +54,9 @@ export default function Navbar() {
             href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
+            className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              after:transition-all after:duration-300 hover:after:w-full"
           >
             <FaFacebookF size={20} />
           </a>
@@ -62,7 +64,9 @@ export default function Navbar() {
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
+            className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              after:transition-all after:duration-300 hover:after:w-full"
           >
             <FaInstagram size={20} />
           </a>
@@ -120,9 +124,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="relative block py-2 text-gray-700 transition-colors duration-300 hover:text-purple-600 
-                  after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-500 after:left-1/2 
-                  after:-translate-x-1/2 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                  className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              after:transition-all after:duration-300 hover:after:w-full block py-4"
                 >
                   {link.label}
                 </Link>
@@ -134,7 +138,9 @@ export default function Navbar() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
+                  className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              after:transition-all after:duration-300 hover:after:w-full block py-4"
                 >
                   <FaFacebookF size={22} />
                 </a>
@@ -142,7 +148,9 @@ export default function Navbar() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
+                  className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
+              after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
+              after:transition-all after:duration-300 hover:after:w-full block py-4"
                 >
                   <FaInstagram size={22} />
                 </a>
