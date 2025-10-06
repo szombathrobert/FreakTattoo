@@ -35,7 +35,7 @@ export default function TattooGallery() {
             Tetoválás munkáim
           </h2>
           <a
-            href="#"
+            href="/TattooWork"
             className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
               after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-gray-400 after:left-1/2 after:-translate-x-1/2 after:-bottom-1 
               after:transition-all after:duration-300 hover:after:w-full"
@@ -62,7 +62,6 @@ export default function TattooGallery() {
                 slidesPerView={3}          // egyszerre 3 slide látszik
                 spaceBetween={30}
                 breakpoints={{
-                    640: { slidesPerView: 1 },
                     768: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 },
                 }}
