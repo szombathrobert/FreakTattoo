@@ -1,28 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Swiper stílusok
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 export default function PiercingGallery() {
-  // Dummy képek
-  const images = [
-    "/dummy1.jpg",
-    "/dummy2.jpg",
-    "/dummy3.jpg",
-    "/dummy4.jpg",
-    "/dummy5.jpg",
-    "/dummy6.jpg",
-    "/dummy7.jpg",
-  ];
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/piercings")
+      .then((res) => res.json())
+      .then((data) => setImages(data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
-    <section id="tattoo" className="py-20 bg-gray-50">
+    <section id="piercing" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -52,14 +49,14 @@ export default function PiercingGallery() {
         >
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            loop={true}                // végtelenített slider
+            loop={true}
             autoplay={{
-              delay: 0,                // nincs szünet a slide-ok között
+              delay: 0,
               disableOnInteraction: false,
             }}
-            speed={3000}               // sebesség (ms) az egész slide áthúzásra
-            freeMode={true}            // folyamatos mozgás, nem ugrik
-            slidesPerView={3}          // egyszerre 3 slide látszik
+            speed={3000}
+            freeMode={true}
+            slidesPerView={1} // mobilon 1
             spaceBetween={30}
             breakpoints={{
               768: { slidesPerView: 2 },
@@ -70,8 +67,8 @@ export default function PiercingGallery() {
               <SwiperSlide key={idx}>
                 <div className="overflow-hidden rounded-lg shadow-lg">
                   <img
-                    src={img}
-                    alt={`Tetoválás ${idx + 1}`}
+                    src={`http://localhost:5000${img}`}
+                    alt={`Piercing ${idx + 1}`}
                     className="w-full h-64 object-cover"
                   />
                 </div>

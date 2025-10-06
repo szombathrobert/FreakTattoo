@@ -21,10 +21,10 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { href: '#home', label: 'Kezdőlap' },
-    { href: '#about', label: 'Rólam' },
-    { href: '#work', label: 'Munkáim' },
-    { href: '#contact', label: 'Kapcsolat' },
+    { href: '/#home', label: 'Kezdőlap' },
+    { href: '/#about', label: 'Rólam' },
+    { href: '/#work', label: 'Munkáim' },
+    { href: '/#contact', label: 'Kapcsolat' },
   ];
 
   return (

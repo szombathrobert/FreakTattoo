@@ -1,25 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Swiper stílusok
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 export default function TattooGallery() {
-  // Dummy képek
-  const images = [
-    "/dummy1.jpg",
-    "/dummy2.jpg",
-    "/dummy3.jpg",
-    "/dummy4.jpg",
-    "/dummy5.jpg",
-    "/dummy6.jpg",
-    "/dummy7.jpg",
-  ];
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/tattoos")
+      .then((res) => res.json())
+      .then((data) => setImages(data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <section id="tattoo" className="py-20 bg-gray-50">
@@ -50,34 +47,34 @@ export default function TattooGallery() {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-            <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                loop={true}                // végtelenített slider
-                autoplay={{
-                    delay: 0,                // nincs szünet a slide-ok között
-                    disableOnInteraction: false,
-                }}
-                speed={3000}               // sebesség (ms) az egész slide áthúzásra
-                freeMode={true}            // folyamatos mozgás, nem ugrik
-                slidesPerView={3}          // egyszerre 3 slide látszik
-                spaceBetween={30}
-                breakpoints={{
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 },
-                }}
-                >
-                {images.map((img, idx) => (
-                    <SwiperSlide key={idx}>
-                    <div className="overflow-hidden rounded-lg shadow-lg">
-                        <img
-                        src={img}
-                        alt={`Tetoválás ${idx + 1}`}
-                        className="w-full h-64 object-cover"
-                        />
-                    </div>
-                    </SwiperSlide>
-                ))}
-                </Swiper>
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            loop={true}              
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+            }}
+            speed={3000}             
+            freeMode={true}          
+            slidesPerView={1}        // mobilon 1
+            spaceBetween={30}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+          >
+            {images.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="overflow-hidden rounded-lg shadow-lg">
+                  <img
+                    src={`http://localhost:5000${img}`}
+                    alt={`Tetoválás ${idx + 1}`}
+                    className="w-full h-64 object-cover"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </motion.div>
       </div>
     </section>
