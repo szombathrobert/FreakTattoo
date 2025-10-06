@@ -33,16 +33,19 @@ export default function About() {
           transition={{ duration: 1 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Üdvözöllek Németh Gergely vagyok a Freak Tattoo tulajdonosa
+            Üdvözöllek Németh Gergely vagyok
           </h2>
           <p className="text-gray-700 mb-4">
             Évek óta foglalkozom tetoválással és piercinggel, mindig a
             minőségre és a részletekre figyelve. Egyedi mintákat készítek,
             amelyek tükrözik a vendégek személyiségét.
           </p>
-          <p className="text-gray-700">
+          <p className="text-gray-700 mb-4">
             Minden munkámat precíz, biztonságos környezetben végzem, ahol a
             kreativitás és a kényelem kéz a kézben jár.
+          </p>
+          <p className="text-gray-700">
+            Jelenleg a Freak Tattoo üzletben vagyok vezető és ott is dolgozom.
           </p>
         </motion.div>
       </div>
