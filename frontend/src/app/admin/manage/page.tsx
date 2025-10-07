@@ -12,16 +12,16 @@ type ImageItem = {
 export default function ManageImages() {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showUnauthorizedModal, setShowUnauthorizedModal] = useState(false);
   const router = useRouter();
 
   // Jogosultság ellenőrzés
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('Nincs jogosúltságod!');
-      router.push('/admin');
+      setShowUnauthorizedModal(true); // Modal megjelenítése
     }
-  }, [router]);
+  }, []);
 
   // Képek betöltése
   const fetchImages = async () => {
@@ -73,29 +73,68 @@ export default function ManageImages() {
         Feltöltött képek kezelése
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-{images.map((img) => (
-  <motion.div
-    key={`${img.type}-${img.id}`} // <-- itt a unique key
-    whileHover={{ scale: 1.03 }}
-    className="bg-white rounded-xl shadow-lg overflow-hidden relative border border-gray-200"
-  >
-    <img src={img.url} alt={img.type} className="w-full h-64 object-cover" />
-    <div className="p-4 flex justify-between items-center">
-      <span className="capitalize font-semibold text-gray-700">{img.type}</span>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => handleDelete(img)}
-        className="bg-red-600 text-white px-3 py-1 rounded-lg shadow hover:bg-red-700 transition"
-      >
-        Törlés
-      </motion.button>
-    </div>
-  </motion.div>
-))}
-
+      <div className="mb-6 text-center">
+        <button
+          onClick={() => router.push('/admin/dashboard')}
+          className="text-gray-500 hover:text-gray-700 transition cursor-pointer"
+        >
+          ← Vissza a Dashboardra
+        </button>
       </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {images.map((img) => (
+          <motion.div
+            key={`${img.type}-${img.id}`} // unique key
+            whileHover={{ scale: 1.03 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden relative border border-gray-200"
+          >
+            <img src={`http://localhost:5000${img.url}`} alt={img.type} className="w-full h-64 object-cover" />
+            <div className="p-4 flex justify-between items-center">
+              <span className="capitalize font-semibold text-gray-700">{img.type}</span>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleDelete(img)}
+                className="bg-red-600 text-white px-3 py-1 rounded-lg shadow hover:bg-red-700 transition"
+              >
+                Törlés
+              </motion.button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Jogosultság hiány modal */}
+      {showUnauthorizedModal && (
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+          {/* Háttér blur + fekete átlátszó overlay */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-xl"></div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-200/30 text-center z-10"
+          >
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Nincs jogosultságod!
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Ehhez az oldalhoz csak admin felhasználó férhet hozzá.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/admin')}
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
+              Vissza a bejelentkezéshez
+            </motion.button>
+          </motion.div>
+        </div>
+      )}
+
     </div>
   );
 }

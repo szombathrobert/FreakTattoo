@@ -6,15 +6,16 @@ import { useRouter } from 'next/navigation';
 export default function UploadTattoo() {
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
+  const [showUnauthorizedModal, setShowUnauthorizedModal] = useState(false);
     const router = useRouter();
   
+    // Jogosultság ellenőrzés
     useEffect(() => {
       const token = localStorage.getItem('token');
       if (!token) {
-        alert('Nincs jogosúltságod!');
-        router.push('/admin');
+        setShowUnauthorizedModal(true); // Modal megjelenítése
       }
-    }, [router])
+    }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setFile(e.target.files[0]);
@@ -31,20 +32,33 @@ export default function UploadTattoo() {
     formData.append('image', file);
 
     try {
-      const res = await fetch('http://localhost:5000/upload/tattoo', {
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:5000/api/tattoos/upload', {
         method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
 
       if (res.ok) {
-        setMessage('Sikeres feltöltés!');
+        let data;
+        try {
+          data = await res.json();
+        } catch {
+          data = { message: 'Sikeres feltöltés, de a szerver nem küldött JSON-t', filePath: '' };
+        }
+
+        setMessage(`✅ ${data.message}`);
+        console.log('Kép mentve ide:', data.filePath);
         setFile(null);
+        setTimeout(() => router.push('/admin/manage'), 1000);
       } else {
-        setMessage('Hiba történt a feltöltés során.');
+        const errText = await res.text();
+        console.error('Szerver válasz:', errText);
+        setMessage('⚠️ Hiba történt a feltöltés során.');
       }
     } catch (err) {
-      console.error(err);
-      setMessage('Hiba történt a szerverrel.');
+      console.error('Fetch error:', err);
+      setMessage('❌ Hiba történt a szerverrel.');
     }
   };
 
@@ -85,6 +99,35 @@ export default function UploadTattoo() {
           </button>
         </div>
       </motion.div>
+            {/* Jogosultság hiány modal */}
+      {showUnauthorizedModal && (
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+          {/* Háttér blur + fekete átlátszó overlay */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-xl"></div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-200/30 text-center z-10"
+          >
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Nincs jogosultságod!
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Ehhez az oldalhoz csak admin felhasználó férhet hozzá.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/admin')}
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
+              Vissza a bejelentkezéshez
+            </motion.button>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

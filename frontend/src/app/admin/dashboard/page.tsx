@@ -1,18 +1,19 @@
 'use client';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function AdminDashboard() {
-  const router = useRouter();
-
+    const [showUnauthorizedModal, setShowUnauthorizedModal] = useState(false);
+    const router = useRouter();
+  
+    // Jogosultság ellenőrzés
     useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Nincs jogosúltságod!');
-      router.push('/admin');
-    }
-  }, [router])
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setShowUnauthorizedModal(true); // Modal megjelenítése
+      }
+    }, []);
 
   // Logout példa
   const handleLogout = () => {
@@ -72,6 +73,35 @@ export default function AdminDashboard() {
           </motion.button>
         </div>
       </motion.div>
+      {/* Jogosultság hiány modal */}
+      {showUnauthorizedModal && (
+        <div className="fixed inset-0 flex justify-center items-center z-50">
+          {/* Háttér blur + fekete átlátszó overlay */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-xl"></div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-200/30 text-center z-10"
+          >
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              Nincs jogosultságod!
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Ehhez az oldalhoz csak admin felhasználó férhet hozzá.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push('/admin')}
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
+              Vissza a bejelentkezéshez
+            </motion.button>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

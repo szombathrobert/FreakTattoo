@@ -37,7 +37,7 @@ const Footer = () => {
         {/* Jobb oldal – közösségi ikonok */}
         <div className="flex space-x-4">
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/freaktattoogy/"
             target="_blank"
             rel="noopener noreferrer"
             className="relative text-gray-700 transition-colors duration-300 hover:text-gray-500 font-bold
@@ -46,7 +46,7 @@ const Footer = () => {
             <FaFacebookF size={20} />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/_freaktattoo_/"
             target="_blank"
             rel="noopener noreferrer"
             className="relative text-gray-700 transition-colors duration-300 hover:text-gray-500 font-bold

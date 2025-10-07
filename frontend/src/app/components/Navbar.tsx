@@ -52,10 +52,10 @@ export default function Navbar() {
 
         {/* Social icons (desktop) */}
         <div className="hidden md:flex items-center space-x-4">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
+          <a href="https://www.facebook.com/freaktattoogy/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
             <FaFacebookF size={20} />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
+          <a href="https://www.instagram.com/_freaktattoo_/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
             <FaInstagram size={20} />
           </a>
         </div>
@@ -98,10 +98,10 @@ export default function Navbar() {
 
               {/* Social icons on mobile */}
               <div className="flex space-x-6 pt-3">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
+                <a href="https://www.facebook.com/freaktattoogy/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
                   <FaFacebookF size={22} />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
+                <a href="https://www.instagram.com/_freaktattoo_/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-500">
                   <FaInstagram size={22} />
                 </a>
               </div>

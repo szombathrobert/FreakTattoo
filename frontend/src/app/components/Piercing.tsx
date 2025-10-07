@@ -28,9 +28,10 @@ export default function PiercingGallery() {
           transition={{ duration: 1 }}
           className="flex justify-between items-center mb-8"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
             Piercing munkáim
           </h2>
+
           <a
             href="/PiercingWork"
             className="relative text-gray-700 transition-colors duration-300 hover:text-gray-400 font-bold
