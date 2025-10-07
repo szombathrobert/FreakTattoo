@@ -17,7 +17,7 @@ export default function TattooWork() {
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 text-center text-gray-900">
-        Tetoválás munkáim
+        Piercing munkáim
       </h2>
 
             <div className="mb-6 text-center">
